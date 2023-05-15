@@ -121,6 +121,18 @@
                         </h5>          
                     </div>
                 </div>
+                <div class="col-4 mb-3">
+                    <div class="bg-info rounded p-4">
+                        <h5 class="card-title mb-2 text-white">
+                            Total Amount Donations
+                            <br><br>
+                            <?php
+                                $result = $conn->query("SELECT id FROM amount");
+                                echo($result->num_rows)
+                            ?>
+                        </h5>          
+                    </div>
+                </div>
             </div>
         </div>
 		

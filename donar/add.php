@@ -3,9 +3,10 @@ require("../admin/layout/db.php");
 
 $type = $_POST["type"];
 $total = $_POST["total"];
+$date = $_POST["date"];
 $did= $_COOKIE["id"];
 
-$sql = "INSERT INTO food(type,quan,did,uid,data) VALUES('$type','$total','$did','no','Waiting for Approval');";
+$sql = "INSERT INTO food(type,quan,did,uid,data,date) VALUES('$type','$total','$did','no','Waiting for Approval','$date');";
 
 try {
     $conn->query($sql);

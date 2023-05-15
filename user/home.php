@@ -52,13 +52,15 @@
 				</div>
 			</div>
 		</header>
+
+        <p class="text-secondary container alert alert-primary my-2">For amount donations contact us!</p>
 		
         <div class="container py-4">
             <h5 style="color:#ff5722;font-weight:800">Available Food Donation :</h5>
             <div class="accordion" id="accordionExample">
             <?php
                 $did=$_COOKIE["id"];
-                $result = $conn->query("SELECT food.id,food.type,food.quan,food.data,food.did,donar.name,donar.mobile FROM food INNER JOIN donar ON food.did=donar.id WHERE data='Approved' AND food.uid='no' ORDER BY food.id DESC");
+                $result = $conn->query("SELECT food.date,food.id,food.type,food.quan,food.data,food.did,donar.name,donar.mobile FROM food INNER JOIN donar ON food.did=donar.id WHERE data='Approved' AND food.uid='no' ORDER BY food.id DESC");
                 if($result->num_rows > 0){
                     $i=0;
                     while($row = $result->fetch_assoc()){
@@ -74,6 +76,7 @@
                                 <div class="accordion-body">
                                     <h5 class="card-title mb-2">Food Type : <span style="color:#ff5722"><?php echo($row["type"]) ?></span></h5>
                                     <h6 class="card-subtitle mb-2 text-muted">Quantity : <span style="color:#ff5722"><?php echo($row["quan"]) ?></span></h6>
+                                    <h6 class="card-subtitle mb-2 text-muted">Date : <span style="color:#ff5722"><?php echo($row["date"]) ?></span></h6>
                                     <h6 class="card-subtitle mb-2 text-muted">Donar Name : <?php echo($row["name"]) ?></h6>
                                     <h6 class="card-subtitle mb-2 text-muted">Donar Mobile : <?php echo($row["mobile"]) ?></h6>
                                     <div style="display:flex;justify-content:right">
@@ -101,7 +104,7 @@
             <div class="accordion" id="accordionExample">
             <?php
                 $uid=$_COOKIE["uid"];
-                $result = $conn->query("SELECT food.id,food.type,food.quan,food.data,food.did,donar.name,donar.mobile FROM food INNER JOIN donar ON food.did=donar.id WHERE food.uid='$uid' ORDER BY food.id DESC");
+                $result = $conn->query("SELECT food.date,food.id,food.type,food.quan,food.data,food.did,donar.name,donar.mobile FROM food INNER JOIN donar ON food.did=donar.id WHERE food.uid='$uid' ORDER BY food.id DESC");
                 if($result->num_rows > 0){
                     $i=0;
                     while($row = $result->fetch_assoc()){
@@ -117,6 +120,7 @@
                                 <div class="accordion-body">
                                     <h5 class="card-title mb-2">Food Type : <span style="color:#ff5722"><?php echo($row["type"]) ?></span></h5>
                                     <h6 class="card-subtitle mb-2 text-muted">Quantity : <span style="color:#ff5722"><?php echo($row["quan"]) ?></span></h6>
+                                    <h6 class="card-subtitle mb-2 text-muted">Date : <span style="color:#ff5722"><?php echo($row["date"]) ?></span></h6>
                                     <h6 class="card-subtitle mb-2 text-muted">Donar Name : <?php echo($row["name"]) ?></h6>
                                     <h6 class="card-subtitle mb-2 text-muted">Donar Mobile : <?php echo($row["mobile"]) ?></h6>
                                     

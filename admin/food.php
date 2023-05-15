@@ -79,6 +79,7 @@
                                 <div class="accordion-body">
                                     <h5 class="card-title mb-2">Food Type : <span style="color:#ff5722"><?php echo($row["type"]) ?></span></h5>
                                     <h6 class="card-subtitle mb-2 text-muted">Quantity : <span style="color:#ff5722"><?php echo($row["quan"]) ?></span></h6>
+                                    <h6 class="card-subtitle mb-2 text-muted">Date : <span style="color:#ff5722"><?php echo($row["date"]) ?></span></h6>
                                     <h6 class="card-subtitle mb-2 text-muted">Donar Name : <?php echo($row["name"]) ?></h6>
                                     <h6 class="card-subtitle mb-2 text-muted">Donar Mobile : <?php echo($row["mobile"]) ?></h6>
                                     <div style="display:flex;justify-content:space-around">
@@ -105,12 +106,12 @@
             ?>
         </div>
 
-        <div class=" py-4">
+        <div class="container py-4">
             <h5 style="color:#ff5722;font-weight:800">Approved List :</h5>
             <div class="accordion" id="accordionExample">
             <?php
                 $did=$_COOKIE["id"];
-                $result = $conn->query("SELECT food.id,food.type,food.quan,food.data,food.did,donar.name,donar.mobile FROM food INNER JOIN donar ON food.did=donar.id WHERE data='Approved' ORDER BY food.id DESC");
+                $result = $conn->query("SELECT food.date,food.id,food.type,food.quan,food.data,food.did,donar.name,donar.mobile FROM food INNER JOIN donar ON food.did=donar.id WHERE data='Approved' ORDER BY food.id DESC");
                 if($result->num_rows > 0){
                     $i=0;
                     while($row = $result->fetch_assoc()){
@@ -126,11 +127,47 @@
                                 <div class="accordion-body">
                                     <h5 class="card-title mb-2">Food Type : <span style="color:#ff5722"><?php echo($row["type"]) ?></span></h5>
                                     <h6 class="card-subtitle mb-2 text-muted">Quantity : <span style="color:#ff5722"><?php echo($row["quan"]) ?></span></h6>
+                                    <h6 class="card-subtitle mb-2 text-muted">Date : <span style="color:#ff5722"><?php echo($row["date"]) ?></span></h6>
                                     <h6 class="card-subtitle mb-2 text-muted">Donar Name : <?php echo($row["name"]) ?></h6>
                                     <h6 class="card-subtitle mb-2 text-muted">Donar Mobile : <?php echo($row["mobile"]) ?></h6>
                                 </div>
                                 </div>
                             </div>
+                        <?php
+                    }
+                }else{
+            ?>
+            </div>
+            <p class="text-center text-secondary">Nothing Found</p>
+            <?php
+                }
+            ?>
+        </div>
+
+        <div class="container py-4">
+            <h5 style="color:#ff5722;font-weight:800">Amount Donations :</h5>
+            <div class="table-responsive">
+                <table class="table table-striped text-center">
+                    <tr>
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                    </tr>
+            <?php
+                $id=$_COOKIE["id"];
+                $result = $conn->query("SELECT donar.name,amount.amount,amount.reg_date FROM amount INNER JOIN donar ON amount.did=donar.id ORDER BY amount.id DESC");
+                if($result->num_rows > 0){
+                    $i=0;
+                    while($row = $result->fetch_assoc()){
+                        $i++;
+                        ?>
+                            <tr>
+                                <td><?php echo $i?></td>
+                                <td><?php echo $row["name"]?></td>
+                                <td><?php echo $row["amount"]?></td>
+                                <td><?php echo $row["reg_date"]?></td>
+                            </tr>
                         <?php
                     }
                 }else{

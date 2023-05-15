@@ -78,11 +78,44 @@
                             <label for="yourUsername">Food Type<span class="text-danger">*</span> :</label>
                         </div>
                         <div class="form-floating mb-3 ">
+                            <input type="date" name="date" class="form-control" placeholder="Date" required>
+                            <label>Date</label>
+                        </div>
+                        <div class="form-floating mb-3 ">
                             <input type="number" name="total" class="form-control" placeholder="Quan)" required>
                             <label>Quantity (No of Person)</label>
                         </div>
                         <div class="text-end">
                             <button class="btn btn-primary" style="color:#fff;background-color:#ff5722">Add</button>
+                        </div>
+                    </form>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+        <button type="button" style="color:#fff;background-color:#ff5722;position:fixed;bottom:120px;right:20px"  class="btn" data-bs-toggle="modal" data-bs-target="#myModal1">
+            Donate<br>Money
+        </button>
+        <div class="modal fade" id="myModal1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" style="color:#ff5722">Donate Money</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form style="color:#ff5722" action="/donar/addmo.php" method="post">
+                        
+                        <div class="form-floating mb-3 ">
+                            <input type="number" name="amount" class="form-control" placeholder="Date" required>
+                            <label>Amount</label>
+                        </div>
+                        <div class="text-end">
+                            <button class="btn btn-primary" style="color:#fff;background-color:#ff5722">Donate</button>
                         </div>
                     </form>
                 </div>
@@ -112,6 +145,7 @@
                                 <div class="accordion-body">
                                     <h5 class="card-title mb-2">Food Type : <span style="color:#ff5722"><?php echo($row["type"]) ?></span></h5>
                                     <h6 class="card-subtitle mb-2 text-muted">Quantity : <span style="color:#ff5722"><?php echo($row["quan"]) ?></span></h6>
+                                    <h6 class="card-subtitle mb-2 text-muted">Date : <span style="color:#ff5722"><?php echo($row["date"]) ?></span></h6>
                                     
                                 </div>
                                 </div>
@@ -148,12 +182,46 @@
                                 <div class="accordion-body">
                                     <h5 class="card-title mb-2">Food Type : <span style="color:#ff5722"><?php echo($row["type"]) ?></span></h5>
                                     <h6 class="card-subtitle mb-2 text-muted">Quantity : <span style="color:#ff5722"><?php echo($row["quan"]) ?></span></h6>
+                                    <h6 class="card-subtitle mb-2 text-muted">Date : <span style="color:#ff5722"><?php echo($row["date"]) ?></span></h6>
                                     <h6 class="card-subtitle mb-2 text-muted">User Name : <?php echo($row["name"]) ?></h6>
                                     <h6 class="card-subtitle mb-2 text-muted">User Mobile : <?php echo($row["mobile"]) ?></h6>
                                     
                                 </div>
                                 </div>
                             </div>
+                        <?php
+                    }
+                }else{
+            ?>
+            </div>
+            <p class="text-center text-secondary">Nothing Found</p>
+            <?php
+                }
+            ?>
+        </div>
+
+        <div class="container py-4">
+            <h5 style="color:#ff5722;font-weight:800">Your Amount Donations :</h5>
+            <div class="table-responsive">
+                <table class="table table-striped text-center">
+                    <tr>
+                        <th>No</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                    </tr>
+            <?php
+                $id=$_COOKIE["id"];
+                $result = $conn->query("SELECT * FROM amount WHERE did='$id' ORDER BY id DESC");
+                if($result->num_rows > 0){
+                    $i=0;
+                    while($row = $result->fetch_assoc()){
+                        $i++;
+                        ?>
+                            <tr>
+                                <td><?php echo $i?></td>
+                                <td><?php echo $row["amount"]?></td>
+                                <td><?php echo $row["reg_date"]?></td>
+                            </tr>
                         <?php
                     }
                 }else{
